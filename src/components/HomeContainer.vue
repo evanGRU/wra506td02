@@ -9,7 +9,12 @@ const props = defineProps(['title', 'datas']);
     <h1 class="container-title">{{ title }}</h1>
     <div class="container d-flex">
       <div v-for="data in props.datas" class="card">
-        <h3>{{ data }}</h3>
+        <router-link :to="`/api/movie/${data.id}`" v-if="title === 'Movies'">
+          <h3>{{ data.title }}</h3>
+        </router-link>
+        <router-link :to="`/api/actor/${data.id}`" v-else>
+          <h3>{{ data.firstName }} {{ data.lastName }}</h3>
+        </router-link>
       </div>
     </div>
   </div>

@@ -1,14 +1,21 @@
 <script setup>
+import {onMounted, ref} from "vue";
+import {isUserAuthenticated} from "../auth.js";
 import HomeContainer from "../components/HomeContainer.vue";
+import Header from "../components/Header.vue";
 
-const moviesList = ['Movie 1', 'Movie 2', 'Movie 3', 'Movie 4'];
-const actorsList = ['Actor 1', 'Actor 2', 'Actor 3', 'Actor 4'];
+const movieList = ref([]);
+const actorList = ref([]);
 
+onMounted(async () => {
+  isUserAuthenticated();
+})
 </script>
 
 <template>
-  <HomeContainer title="Movies" :datas="moviesList"/>
-  <HomeContainer title="Actors" :datas="actorsList"/>
+  <Header/>
+  <HomeContainer title="Movies" :datas="movieList"/>
+  <HomeContainer title="Actors" :datas="actorList"/>
 </template>
 
 <style scoped>

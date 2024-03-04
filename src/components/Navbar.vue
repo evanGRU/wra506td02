@@ -4,18 +4,15 @@
 <template>
   <nav class="d-flex-center">
     <ul class="d-flex-center">
-      <router-link to="/"><li>Home</li></router-link>
-      <router-link to="/api/movie/list"><li>Movies</li></router-link>
-      <router-link to="/api/actor/list"><li>Actors</li></router-link>
-      <router-link to="/api/category/list"><li>Categories</li></router-link>
+      <router-link to="/"><li>Accueil</li></router-link>
+      <router-link to="/movie/list"><li>Films</li></router-link>
+      <router-link to="/actor/list"><li>Acteurs</li></router-link>
+      <router-link to="/category/list"><li>Catégories</li></router-link>
     </ul>
   </nav>
 </template>
 
 <style scoped>
-nav {
-  margin-bottom: 3em;
-}
 nav ul{
   list-style: none;
   padding: 0;
