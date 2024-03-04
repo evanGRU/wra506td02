@@ -8,6 +8,7 @@ import CategoryListPage from "./views/category/CategoryListPage.vue";
 import MovieDetailPage from "./views/movie/MovieDetailPage.vue";
 import ActorDetailPage from "./views/actor/ActorDetailPage.vue";
 import AddMovie from "./views/movie/AddMovie.vue";
+import AddActor from "./views/actor/AddActor.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -36,6 +37,11 @@ const router = createRouter({
             path: '/actor/list',
             name: 'actorList',
             component: ActorListPage
+        },
+        {
+            path: '/add/actor',
+            name: 'addActor',
+            component: AddActor
         },
         {
             path: '/actor/:id',

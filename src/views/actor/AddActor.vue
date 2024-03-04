@@ -4,25 +4,21 @@ import {postData} from "../../apiCalls.js";
 
 export default {
   data: formData => ({
-    title: null,
-    description: null,
-    releaseDate: null,
-    duration: null,
+    firstName: null,
+    lastName: null,
   }),
   components: {
     Header
   },
   methods: {
     handleSubmit() {
-      const movieToAdd = {
-        title: this.title,
-        description: this.description,
-        releaseDate: this.releaseDate,
-        duration: this.duration
+      const actorToAdd = {
+        firstName: this.firstName,
+        lastName: this.lastName,
       }
       try {
-        postData('https://127.0.0.1:8000/api/movies', movieToAdd)
-        window.location.replace('/movie/list');
+        postData('https://127.0.0.1:8000/api/actors', actorToAdd)
+        window.location.replace('/actor/list');
       } catch (e) {
         console.log(e)
       }
@@ -40,41 +36,21 @@ export default {
     >
       <div class="d-flex" style="gap: 1em">
         <div class="addField">
-          <label for="title">Titre</label>
+          <label for="title">Prénom</label>
           <input
               type="text"
-              placeholder="Titre"
-              v-model="title"
+              placeholder="Prénom"
+              v-model="firstName"
               class="addInput"
           >
         </div>
 
         <div class="addField">
-          <label for="description">Description</label>
+          <label for="description">Nom</label>
           <input
               type="text"
-              placeholder="Description"
-              v-model="description"
-              class="addInput"
-          >
-        </div>
-
-        <div class="addField">
-          <label for="date">Date de sortie</label>
-          <input
-              type="date"
-              placeholder="Date de sortie"
-              v-model="releaseDate"
-              class="addInput"
-          >
-        </div>
-
-        <div class="addField">
-          <label for="number">Duration</label>
-          <input
-              type="number"
-              placeholder="Durée"
-              v-model="duration"
+              placeholder="Nom"
+              v-model="lastName"
               class="addInput"
           >
         </div>
@@ -83,7 +59,7 @@ export default {
           type="submit"
           class="addButton"
       >
-        Ajouter un film
+        Ajouter un acteur
       </button>
     </form>
   </div>
