@@ -20,8 +20,12 @@ export default {
         releaseDate: this.releaseDate,
         duration: this.duration
       }
-      console.log(movieToAdd)
-      postData('https://127.0.0.1:8000/api/movies', movieToAdd)
+      try {
+        postData('https://127.0.0.1:8000/api/movies', movieToAdd)
+        window.location.replace('/movie/list');
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
