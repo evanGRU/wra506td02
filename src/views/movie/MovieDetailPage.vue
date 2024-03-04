@@ -1,25 +1,47 @@
 <script setup>
-import { defineProps } from 'vue'
+import {useRoute} from "vue-router";
+import {onMounted, ref} from "vue";
+import axios from 'axios';
+import Header from "../../components/Header.vue";
+import {axiosConfig} from "../../apiCalls.js";
+import {isUserAuthenticated} from "../../auth.js";
 
-const props = defineProps(['movie']);
+//get ID pass in path
+const route = useRoute();
+const id = route.params.id;
+
+const movieDetail = ref({
+  data: null,
+  errors: null
+});
+
+onMounted(async () => {
+  isUserAuthenticated();
+  movieDetail.value = await axios.get('https://127.0.0.1:8000/api/movies/'+id, axiosConfig);
+})
 </script>
 
-<template>
-  <div class="movie-card-container d-flex justify-content-start align-item-center">
-    <div class="movie-card-picture"></div>
-    <div class="movie-card-details d-flex-column justify-content-start">
-      <div class="movie-card-details-title">
-        <h3>{{movie.title}} <span>{{movie.duration}} minutes, 2023...</span></h3>
-        <p>{{movie.description}}</p>
+<template >
+  <Header/>
+  <div v-if="movieDetail.data">
+    <div class="movie-card-container d-flex justify-content-start align-item-center">
+      <div class="movie-card-picture"></div>
+      <div class="movie-card-details d-flex-column justify-content-start">
+        <div class="movie-card-details-title">
+          <h3>{{movieDetail.data.title}} <span>{{movieDetail.data.duration}} minutes</span></h3>
+          <h4>{{movieDetail.data.releaseDate}}</h4>
+          <p>{{movieDetail.data.description}}</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="movie-card-details-actors">
-    <h3>Actors</h3>
-    <div class="movie-card-details-actors-pictures d-flex align-item-center">
-      <div class="movie-card-details-actors-details" v-for="actor in movie.actor">
-        <p>{{actor.firstName}} {{actor.lastName}}</p>
-
+    <div class="movie-card-details-actors">
+      <h3>Liste des acteurs jouant dans ce film :</h3>
+      <div class="movie-card-details-actors-pictures d-flex align-item-center">
+        <div class="movie-card-details-actors-details" v-for="actor in movieDetail.data.actor">
+          <router-link :to="`/actor/${actor.id}`">
+            <p style="text-align: center">{{actor.firstName}} {{actor.lastName}}</p>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -58,8 +80,8 @@ const props = defineProps(['movie']);
   gap: 1em;
 }
 .movie-card-details-actors-details{
-  background: #adadad;
+  background: #d2d2d2;
   height: 100%;
-  width: 4em;
+  padding: 1em;
 }
 </style>
